@@ -116,7 +116,7 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
         }
     }
 
-    public HiTabBottomInfo<?> getTabInfo() {
+    public HiTabBottomInfo<?> getHiTabInfo() {
         return tabInfo;
     }
 
