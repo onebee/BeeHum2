@@ -1,7 +1,6 @@
 package com.one.bee;
 
-import android.app.Application;
-
+import com.one.common.ui.component.HiBaseApplication;
 import com.one.library.log.HiConsolePrinter;
 import com.one.library.log.HiLogConfig;
 import com.one.library.log.HiLogManager;
@@ -9,7 +8,7 @@ import com.one.library.log.HiLogManager;
 /**
  * @author diaokaibin@gmail.com on 5/1/21.
  */
-public class App extends Application {
+public class HiApplication extends HiBaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
