@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.one.bee.R
 import com.one.library.log.HiLog
+import com.one.library.util.HiDisplayUtil
 import com.one.ui.tab.bottom.HiTabBottomInfo
 import com.one.ui.tab.bottom.HiTabBottomLayout
 
@@ -48,7 +49,7 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
             BitmapFactory.decodeResource(resources, R.drawable.ic_card_selected, null)
         val bitmapNormal = BitmapFactory.decodeResource(resources, R.drawable.ic_card_normal, null)
 
-        val categoryInfo = HiTabBottomInfo<String>(
+        val categoryInfo = HiTabBottomInfo(
             "分类",
             bitmapNormal,
             bitmapSelected,
@@ -65,14 +66,13 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
             "#ff656667",
             "#ffd44949",
         )
+        val bitmap1= BitmapFactory.decodeResource(resources, R.drawable.fire, null)
 
-        val profileInfo = HiTabBottomInfo(
+        val profileInfo = HiTabBottomInfo<String>(
             "我的",
-            "fonts/iconfont.ttf",
-            getString(R.string.if_profile),
-            null,
-            "#ff656667",
-            "#ffd44949",
+            bitmap1,
+            bitmap1
+
         )
 
         bottomInfoList.add(homeInfo)
@@ -85,14 +85,14 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
         hiTabBottomLayout.defaultSelected(homeInfo)
 
         hiTabBottomLayout.addTabSelectedChangeListener { _, _, nextInfo ->
-//            Toast.makeText(this@HiTabBottomDemoActivity, nextInfo.name, Toast.LENGTH_SHORT).show()
-
             HiLog.d(" click = " + nextInfo.name)
         }
 
 
         val findTab = hiTabBottomLayout.findTab(profileInfo)
-
+        findTab?.apply {
+            resetHeight(HiDisplayUtil.dp2px(66f,resources))
+        }
 
     }
 

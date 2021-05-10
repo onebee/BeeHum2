@@ -7,9 +7,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.one.library.util.HiDisplayUtil;
+import com.one.library.util.HiViewUtil;
 import com.one.ui.R;
 import com.one.ui.tab.common.IHiTabLayout;
 
@@ -21,6 +24,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author diaokaibin@gmail.com on 2021/5/5.
@@ -144,6 +148,8 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         addBottomLine();
         addView(fl, flParams);
 
+        fixContentView();
+
     }
 
     private void addBottomLine() {
@@ -169,6 +175,32 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         params.gravity = Gravity.BOTTOM;
         addView(view, params);
         view.setAlpha(bottomAlpha);
+    }
+
+
+    /**
+     * 修复内容区域的底部Padding
+     */
+    private void fixContentView() {
+        if (!(getChildAt(0) instanceof ViewGroup)) {
+            return;
+        }
+        ViewGroup rootView = (ViewGroup) getChildAt(0);
+        ViewGroup targetView = HiViewUtil.findTypeView(rootView, RecyclerView.class);
+        if (targetView == null) {
+            targetView = HiViewUtil.findTypeView(rootView, ScrollView.class);
+        }
+        if (targetView == null) {
+            targetView = HiViewUtil.findTypeView(rootView, AbsListView.class);
+        }
+        if (targetView != null) {
+            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight, getResources()));
+            /**
+             * 让ScrollView 底部的Padding 可以绘制
+             */
+            targetView.setClipToPadding(false);
+        }
+
     }
 
 
