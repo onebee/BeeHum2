@@ -39,17 +39,17 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     /**
      * TabBottom 头部线条高度
      */
-    private float bottomLineHeight = 0.5f;
-    private String bottomLineColor = "#dfe0e1";
+    private float bottomLineHeight = 5.5f;
+    private String bottomLineColor = "#d666e1";
     private List<HiTabBottomInfo<?>> infoList;
 
 
     public HiTabBottomLayout(@NonNull Context context) {
-        super(context);
+        this(context,null);
     }
 
     public HiTabBottomLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public HiTabBottomLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -62,7 +62,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     public HiTabBottom findTab(@NotNull HiTabBottomInfo<?> info) {
         ViewGroup ll = findViewWithTag(TAG_TAB_BOTTOM);
         for (int i = 0; i < ll.getChildCount(); i++) {
-            View child = getChildAt(i);
+            View child = ll.getChildAt(i);
             if (child instanceof HiTabBottom) {
                 HiTabBottom tab = (HiTabBottom) child;
                 if (tab.getHiTabInfo() == info) {

@@ -30,6 +30,15 @@ public class HiTabBottomInfo <Color>{
         tabType = TabType.BITMAP;
     }
 
+    public HiTabBottomInfo(String name, Bitmap defaultBitmap, Bitmap selectedBitmap,Color defaultColor, Color tintColor) {
+        this.name = name;
+        this.defaultBitmap = defaultBitmap;
+        this.selectedBitmap = selectedBitmap;
+        this.defaultColor = defaultColor;
+        this.tintColor = tintColor;
+        tabType = TabType.BITMAP;
+    }
+
 
     public HiTabBottomInfo(String name, String iconFont, String defaultIconName, String selectedIconName, Color defaultColor, Color tintColor) {
         this.name = name;
