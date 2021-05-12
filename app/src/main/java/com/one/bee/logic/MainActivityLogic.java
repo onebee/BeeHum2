@@ -3,14 +3,24 @@ package com.one.bee.logic;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.View;
 
 import com.one.bee.R;
+import com.one.bee.fragment.CategoryFragment;
+import com.one.bee.fragment.FavoriteFragment;
+import com.one.bee.fragment.HomePageFragment;
+import com.one.bee.fragment.ProfileFragment;
+import com.one.bee.fragment.RecommendFragment;
 import com.one.common.tab.HiFragmentTabView;
+import com.one.common.tab.HiTabViewAdapter;
 import com.one.library.util.HiDisplayUtil;
 import com.one.ui.tab.bottom.HiTabBottom;
 import com.one.ui.tab.bottom.HiTabBottomInfo;
 import com.one.ui.tab.bottom.HiTabBottomLayout;
+import com.one.ui.tab.common.IHiTabLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +35,7 @@ import androidx.fragment.app.FragmentManager;
  */
 public class MainActivityLogic {
 
+
     private HiFragmentTabView fragmentTabView;
     private HiTabBottomLayout hiTabBottomLayout;
     private List<HiTabBottomInfo<?>> infoList;
@@ -35,9 +46,15 @@ public class MainActivityLogic {
      */
     private ActivityProvider activityProvider;
     private int currentItemIndex;
+    private final static String SAVED_CURRENT_ID = "SAVED_CURRENT_ID";
 
-    public MainActivityLogic(ActivityProvider activityProvider) {
+    public MainActivityLogic(ActivityProvider activityProvider, Bundle savedInstanceState) {
         this.activityProvider = activityProvider;
+
+        // fix 不保留活动导致的Fragment 重叠问题
+        if (savedInstanceState != null) {
+            currentItemIndex = savedInstanceState.getInt(SAVED_CURRENT_ID);
+        }
         initTabBottom();
     }
 
@@ -98,20 +115,61 @@ public class MainActivityLogic {
 
         );
 
+        profileInfo.fragment = ProfileFragment.class;
+        homeInfo.fragment = HomePageFragment.class;
+        favoriteInfo.fragment = FavoriteFragment.class;
+        categoryInfo.fragment = CategoryFragment.class;
+        recommendCategory.fragment = RecommendFragment.class;
+
         infoList.add(homeInfo);
         infoList.add(favoriteInfo);
-        infoList.add(categoryInfo);
-        infoList.add(recommendCategory);
         infoList.add(profileInfo);
+        infoList.add(recommendCategory);
+        infoList.add(categoryInfo);
 
         hiTabBottomLayout.inflateInfo(infoList);
-        hiTabBottomLayout.defaultSelected(homeInfo);
 
+        initFragmentTabView();
+//        fragmentTabView.setCurrentItem(0);
+        hiTabBottomLayout.addTabSelectedChangeListener(new IHiTabLayout.OnTabSelectedListener<HiTabBottomInfo<?>>() {
+            @Override
+            public void onTabSelectedChange(int index, @NotNull HiTabBottomInfo<?> prevInfo, @NotNull HiTabBottomInfo<?> nextInfo) {
+                fragmentTabView.setCurrentItem(index);
+                MainActivityLogic.this.currentItemIndex = index;
+            }
+        });
+        hiTabBottomLayout.defaultSelected(infoList.get(currentItemIndex));
 
         HiTabBottom findTab = hiTabBottomLayout.findTab(profileInfo);
         findTab.resetHeight(HiDisplayUtil.dp2px(66f, activityProvider.getResources()));
 
     }
+
+    private void initFragmentTabView() {
+        HiTabViewAdapter tabViewAdapter = new HiTabViewAdapter(infoList, activityProvider.getSupportFragmentManager());
+        fragmentTabView = activityProvider.findViewById(R.id.fragment_tab_view);
+        fragmentTabView.setAdapter(tabViewAdapter);
+
+    }
+
+
+    public HiFragmentTabView getFragmentTabView() {
+        return fragmentTabView;
+    }
+
+    public HiTabBottomLayout getHiTabBottomLayout() {
+        return hiTabBottomLayout;
+    }
+
+    public List<HiTabBottomInfo<?>> getInfoList() {
+        return infoList;
+    }
+
+    public void onSaveInstanceState(Bundle state) {
+        state.putInt(SAVED_CURRENT_ID,currentItemIndex);
+
+    }
+
 
     public interface ActivityProvider {
         <T extends View> T findViewById(@IdRes int id);
