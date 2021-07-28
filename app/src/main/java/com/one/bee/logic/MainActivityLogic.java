@@ -14,6 +14,7 @@ import com.one.bee.fragment.ProfileFragment;
 import com.one.bee.fragment.RecommendFragment;
 import com.one.common.tab.HiFragmentTabView;
 import com.one.common.tab.HiTabViewAdapter;
+import com.one.library.log.HiLog;
 import com.one.library.util.HiDisplayUtil;
 import com.one.ui.tab.bottom.HiTabBottom;
 import com.one.ui.tab.bottom.HiTabBottomInfo;
@@ -130,19 +131,22 @@ public class MainActivityLogic {
         hiTabBottomLayout.inflateInfo(infoList);
 
         initFragmentTabView();
-//        fragmentTabView.setCurrentItem(0);
-        hiTabBottomLayout.addTabSelectedChangeListener(new IHiTabLayout.OnTabSelectedListener<HiTabBottomInfo<?>>() {
-            @Override
-            public void onTabSelectedChange(int index, @NotNull HiTabBottomInfo<?> prevInfo, @NotNull HiTabBottomInfo<?> nextInfo) {
-                fragmentTabView.setCurrentItem(index);
-                MainActivityLogic.this.currentItemIndex = index;
-            }
-        });
+
+
         hiTabBottomLayout.defaultSelected(infoList.get(currentItemIndex));
 
         HiTabBottom findTab = hiTabBottomLayout.findTab(profileInfo);
         findTab.resetHeight(HiDisplayUtil.dp2px(66f, activityProvider.getResources()));
+        hiTabBottomLayout.addTabSelectedChangeListener(
 
+                new IHiTabLayout.OnTabSelectedListener<HiTabBottomInfo<?>>() {
+                    @Override
+                    public void onTabSelectedChange(int index, @NotNull HiTabBottomInfo<?> prevInfo, @NotNull HiTabBottomInfo<?> nextInfo) {
+                        HiLog.i("hiTabBottomLayout  addTabSelectedChangeListener prev = " + prevInfo.name + " , next = " + nextInfo.name);
+                        fragmentTabView.setCurrentItem(index);
+                        MainActivityLogic.this.currentItemIndex = index;
+                    }
+                });
     }
 
     private void initFragmentTabView() {
@@ -166,7 +170,7 @@ public class MainActivityLogic {
     }
 
     public void onSaveInstanceState(Bundle state) {
-        state.putInt(SAVED_CURRENT_ID,currentItemIndex);
+        state.putInt(SAVED_CURRENT_ID, currentItemIndex);
 
     }
 

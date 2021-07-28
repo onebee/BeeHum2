@@ -1,5 +1,6 @@
 package com.one.bee.tab;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.one.bee.R;
@@ -38,6 +39,7 @@ public class HiTabTopDemoActivity extends AppCompatActivity {
 
     private void initTabTop() {
         HiTabTopLayout hiTabTopLayout = findViewById(R.id.tab_top_layout);
+
         List<HiTabTopInfo<?>> infoList = new ArrayList<>();
         int defaultColor = getResources().getColor(R.color.tabBottomDefaultColor);
         int tintColor = getResources().getColor(R.color.tabBottomTintColor);
@@ -57,5 +59,16 @@ public class HiTabTopDemoActivity extends AppCompatActivity {
         });
 
         hiTabTopLayout.defaultSelected(infoList.get(0));
+
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+
+
     }
 }

@@ -11,6 +11,7 @@ import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
+import com.one.library.log.HiLog;
 import com.one.library.util.HiDisplayUtil;
 import com.one.library.util.HiViewUtil;
 import com.one.ui.R;
@@ -49,11 +50,11 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
 
 
     public HiTabBottomLayout(@NonNull Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public HiTabBottomLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public HiTabBottomLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -165,6 +166,8 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     private void onSelected(@NonNull HiTabBottomInfo<?> nextInfo) {
         for (OnTabSelectedListener<HiTabBottomInfo<?>> listener : tabSelectedListeners) {
             listener.onTabSelectedChange(infoList.indexOf(nextInfo), selectedInfo, nextInfo);
+            HiLog.i("HiTabBottomLayout onSelected = " + listener.getClass().getSimpleName());
+
         }
         this.selectedInfo = nextInfo;
     }

@@ -84,8 +84,8 @@ class HiTabBottomDemoActivity : AppCompatActivity() {
         hiTabBottomLayout.inflateInfo(bottomInfoList)
         hiTabBottomLayout.defaultSelected(homeInfo)
 
-        hiTabBottomLayout.addTabSelectedChangeListener { _, _, nextInfo ->
-            HiLog.d(" click = " + nextInfo.name)
+        hiTabBottomLayout.addTabSelectedChangeListener { index, _, nextInfo ->
+            HiLog.d(" click = " + nextInfo.name + "  , index = " + index)
         }
 
 

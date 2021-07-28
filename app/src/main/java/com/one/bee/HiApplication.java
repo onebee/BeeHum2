@@ -19,6 +19,16 @@ public class HiApplication extends HiBaseApplication {
             public boolean enable() {
                 return super.enable();
             }
+
+            @Override
+            public boolean includeThread() {
+                return false;
+            }
+
+            @Override
+            public int stackTraceDepth() {
+                return 0;
+            }
         },new HiConsolePrinter());
     }
 }
