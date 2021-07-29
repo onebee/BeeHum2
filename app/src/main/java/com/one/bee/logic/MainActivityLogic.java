@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.one.bee.R;
 import com.one.bee.fragment.CategoryFragment;
@@ -15,6 +16,7 @@ import com.one.bee.fragment.RecommendFragment;
 import com.one.common.tab.HiFragmentTabView;
 import com.one.common.tab.HiTabViewAdapter;
 import com.one.library.log.HiLog;
+import com.one.library.util.AppGlobals;
 import com.one.library.util.HiDisplayUtil;
 import com.one.ui.tab.bottom.HiTabBottom;
 import com.one.ui.tab.bottom.HiTabBottomInfo;
@@ -145,6 +147,8 @@ public class MainActivityLogic {
                         HiLog.i("hiTabBottomLayout  addTabSelectedChangeListener prev = " + prevInfo.name + " , next = " + nextInfo.name);
                         fragmentTabView.setCurrentItem(index);
                         MainActivityLogic.this.currentItemIndex = index;
+                        if (index !=0)
+                            Toast.makeText(AppGlobals.INSTANCE.get(), ": " + 1/0, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
