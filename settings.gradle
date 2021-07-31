@@ -3,3 +3,4 @@ include ':hi-ui'
 include ':hi-library'
 include ':app'
 rootProject.name = "BeeHum2"
+include ':hi_debugtool'
