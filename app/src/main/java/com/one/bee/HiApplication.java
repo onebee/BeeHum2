@@ -1,10 +1,10 @@
 package com.one.bee;
 
 import com.one.common.ui.component.HiBaseApplication;
+import com.one.library.crash.CrashMgr;
 import com.one.library.log.HiConsolePrinter;
 import com.one.library.log.HiLogConfig;
 import com.one.library.log.HiLogManager;
-import com.one.library.util.CrashHandler;
 
 /**
  * @author diaokaibin@gmail.com on 5/1/21.
@@ -33,6 +33,6 @@ public class HiApplication extends HiBaseApplication {
         },new HiConsolePrinter());
 
 
-        CrashHandler.INSTANCE.init();
+        CrashMgr.INSTANCE.init();
     }
 }

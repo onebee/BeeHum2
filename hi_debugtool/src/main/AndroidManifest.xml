@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.one.hi_debugtool">
 
+    <application>
+        <activity
+            android:name="com.one.debug.CrashLogActivity"
+            android:exported="true" />
+    </application>
+
 </manifest>

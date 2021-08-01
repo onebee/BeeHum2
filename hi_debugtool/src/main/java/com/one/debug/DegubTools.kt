@@ -45,4 +45,12 @@ class DebugTools {
         Process.killProcess(Process.myPid())
     }
 
+    @HiDebug(name = "查看Crash日志",desc = "分享给开发同学")
+    fun crashLog(){
+        val context = AppGlobals.get()?.applicationContext ?: return
+        val intent = Intent(context,CrashLogActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
 }

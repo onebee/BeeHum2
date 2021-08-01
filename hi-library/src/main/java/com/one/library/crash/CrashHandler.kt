@@ -1,4 +1,4 @@
-package com.one.library.util
+package com.one.library.crash
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.os.StatFs
 import android.text.format.Formatter
 import com.one.library.BuildConfig
 import com.one.library.log.HiLog
+import com.one.library.util.ActivityManager
+import com.one.library.util.AppGlobals
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -22,10 +24,11 @@ import java.util.*
  * @author  diaokaibin@gmail.com on 2021/7/29.
  */
 object CrashHandler {
-    const val CRASH_DIR = "crash_dir"
+    var CRASH_DIR = "crash_dir"
 
-    fun init() {
+    fun init(crashDir: String) {
         Thread.setDefaultUncaughtExceptionHandler(CaughtExceptionHandler())
+        this.CRASH_DIR = crashDir
     }
 
     private class CaughtExceptionHandler : Thread.UncaughtExceptionHandler {
@@ -64,7 +67,7 @@ object CrashHandler {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val crashDir = File(context.cacheDir, CRASH_DIR)
+            val crashDir = File(CRASH_DIR)
             if (!crashDir.exists()) {
                 crashDir.mkdirs()
             }
