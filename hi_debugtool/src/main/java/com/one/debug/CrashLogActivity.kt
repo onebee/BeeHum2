@@ -32,18 +32,10 @@ class CrashLogActivity : AppCompatActivity() {
 
     }
 
-    inner class CrashAdapter( val crashFiles: Array<File>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return object : RecyclerView.ViewHolder(
-                layoutInflater.inflate(
-                    R.layout.activity_crash_log_list_item,
-                    parent,
-                    false
-                )
-            ) {
+    inner class CrashAdapter( val crashFiles: Array<File>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-            }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return object : RecyclerView.ViewHolder(layoutInflater.inflate(R.layout.activity_crash_log_list_item, parent, false)) {}
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
