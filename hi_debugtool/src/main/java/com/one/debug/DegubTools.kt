@@ -20,6 +20,17 @@ class DebugTools {
     }
 
 
+    fun buildEnvironment():String{
+        return "构建环境:" + if (BuildConfig.DEBUG) "测试环境" else "正式环境"
+    }
+
+
+    fun buildDevice():String{
+        return "设备信息:" + Build.BRAND + "-" + Build.VERSION.SDK_INT + "-"+ Build.CPU_ABI
+    }
+
+
+
     fun buildTime(): String {
         return "构建时间:" + BuildConfig.BUILD_TIME
     }
@@ -29,11 +40,8 @@ class DebugTools {
         SPUtil.putBoolean("degrade_http", true)
         val context = AppGlobals.get()?.applicationContext ?: return
         val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-
         intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
-
-
         Process.killProcess(Process.myPid())
     }
 
